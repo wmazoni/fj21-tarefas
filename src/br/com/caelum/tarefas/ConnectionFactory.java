@@ -10,7 +10,7 @@ public class ConnectionFactory {
 		System.out.println("conectando ...");
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new SQLException(e);
 		}
