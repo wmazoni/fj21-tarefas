@@ -4,12 +4,16 @@ import java.util.Calendar;
 
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Tarefa {
 	private Long id;
-	
+
 	@Size(min = 5)
 	private String descricao;
 	private boolean finalizado;
+
+	@JsonFormat(pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo")
 	private Calendar dataFinalizacao;
 
 	public Long getId() {

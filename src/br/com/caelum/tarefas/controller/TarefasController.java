@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -36,8 +38,24 @@ public class TarefasController {
 	public List<Tarefa> lista() {
 		JdbcTarefaDao dao = new JdbcTarefaDao();
 		List<Tarefa> listaDeTarefas = dao.lista();
-		
+
 		return listaDeTarefas;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/removeTarefa", method = RequestMethod.DELETE)
+	public void remove(Tarefa tarefa) {
+		JdbcTarefaDao dao = new JdbcTarefaDao();
+		dao.remove(tarefa);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/alteraTarefa", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Tarefa altera(@RequestBody Tarefa tarefa) {
+		JdbcTarefaDao dao = new JdbcTarefaDao();
+		dao.altera(tarefa);
+		
+		return tarefa;
 	}
 
 	@ResponseBody
