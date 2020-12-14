@@ -27,8 +27,17 @@ public class TarefasController {
 	public Tarefa adiciona(@Valid Tarefa tarefa) {
 		JdbcTarefaDao dao = new JdbcTarefaDao();
 		dao.adiciona(tarefa);
-		
+
 		return tarefa;
+	}
+
+	@ResponseBody
+	@RequestMapping("/listaTarefas")
+	public List<Tarefa> lista() {
+		JdbcTarefaDao dao = new JdbcTarefaDao();
+		List<Tarefa> listaDeTarefas = dao.lista();
+		
+		return listaDeTarefas;
 	}
 
 	@ResponseBody
@@ -36,13 +45,13 @@ public class TarefasController {
 	@ExceptionHandler(BindException.class)
 	public List<ErroValidacaoDto> trataErrosDeValidacao(BindException exception) {
 		List<ErroValidacaoDto> errosDto = new ArrayList<>();
-		
+
 		List<FieldError> errors = exception.getBindingResult().getFieldErrors();
 		for (FieldError fieldError : errors) {
-			ErroValidacaoDto  dto = new ErroValidacaoDto(fieldError.getField(), fieldError.getDefaultMessage());
+			ErroValidacaoDto dto = new ErroValidacaoDto(fieldError.getField(), fieldError.getDefaultMessage());
 			errosDto.add(dto);
-		} 
-		
+		}
+
 		return errosDto;
 	}
 }
