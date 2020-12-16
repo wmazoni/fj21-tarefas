@@ -57,6 +57,15 @@ public class TarefasController {
 		
 		return tarefa;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/finalizaTarefa", method = RequestMethod.PUT)
+	public Tarefa finaliza(Long id) {
+		JdbcTarefaDao dao = new JdbcTarefaDao();
+		dao.finaliza(id);
+		
+		return dao.buscaPorId(id);
+	}
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
